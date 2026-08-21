@@ -45,7 +45,7 @@
 ### IP API
 
 ```
-https://github.com/sanzang-tango/best-cf-ip/raw/refs/heads/main/best-cf-ipv4.txt
+https://raw.githubusercontent.com/sanzang-tango/best-cf-ip/refs/heads/main/best-cf-ipv4.txt
 ```
 ---
 
@@ -60,7 +60,7 @@ https://github.com/sanzang-tango/best-cf-ip/raw/refs/heads/main/best-cf-ipv4.txt
 ### DOMAIN API
 
 ```
-https://github.com/sanzang-tango/best-cf-ip/blob/main/best-cf-domain.txt
+https://raw.githubusercontent.com/sanzang-tango/best-cf-ip/refs/heads/main/best-cf-domain.txt
 ```
 
 ## 感谢以下个人或组织的公开的优选IP筛选数据
