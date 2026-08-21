@@ -1,0 +1,61 @@
+name: Collect Best CF IPV4
+
+on:
+  schedule:
+    - cron: '50 */8 * * *'
+  workflow_dispatch:
+
+concurrency:
+  group: Collect Best CF IPV4
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+jobs:
+  collect-best-cf-ipv4:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          ref: main
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
+        with:
+          python-version: '3.12'
+
+      - name: Install dependencies
+        run: pip install -r .github/scripts/requirements.txt
+
+      - name: Get Playwright version
+        id: pw-version
+        run: |
+          VERSION=$(python -c 'from importlib.metadata import version; print(version("playwright"))')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Cache Playwright browsers
+        id: pw-cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.cache/ms-playwright
+          key: playwright-${{ runner.os }}-${{ steps.pw-version.outputs.version }}
+
+      - name: Install Playwright Chromium
+        if: steps.pw-cache.outputs.cache-hit != 'true'
+        run: python -m playwright install --with-deps chromium
+
+      - name: Collect Best CF IPV4
+        run: python3 .github/scripts/best-cf-ipv4-collector.py
+
+      - name: Commit update
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add best-cf-ipv4.txt
+          git diff --cached --quiet && echo "No changes to commit" && exit 0
+          git commit -m "Best CF ipv4 list updated $(TZ='Asia/Shanghai' date '+%Y-%m-%d %H:%M')"
+          git pull --rebase origin main
+          git push origin HEAD:main
