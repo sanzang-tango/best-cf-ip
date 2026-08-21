@@ -3,7 +3,7 @@
 ## 项目功能
 
 - 为多个公开或开源Cloudflare优选IP项目进行**聚合&去重&加地理标注&加国旗Unicode**，每3小时更新。  
-- 可接入 [cmliu/edgetunnel](https://github.com/cmliu/edgetunnel)-自定义订阅汇聚。  
+- 可接入 [edgetunnel](https://github.com/cmliu/edgetunnel)-自定义订阅汇聚。  
 
 <p align="center">
   <img src="src/IN-EDT.png" alt="效果图">
@@ -15,7 +15,7 @@
 - **示例内容不要导入任何工具，请使用下方API。**
 
 ```txt
-# 295 bestips updated at 2026-08-01 20:47
+# 295 bestips updated at 2026-08-21 15:00
 104.17.212.191:443#US 🇺🇸
 104.25.0.8:443#US 🇺🇸
 104.18.81.19:8443#US 🇺🇸
